@@ -11,5 +11,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/temp_mainActivity"
         android:text="In login ACtivity"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/temp_signup"
+        android:layout_marginTop="30dp"
+        android:text="In Signup Activity"/>
 </RelativeLayout>

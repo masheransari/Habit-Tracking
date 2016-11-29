@@ -19,5 +19,28 @@
             android:layout_centerVertical="true"
             android:visibility="gone"
             android:src="@drawable/to_do"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Powered By:"
+            android:layout_below="@+id/imageView"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="#2c9907"
+            android:id="@+id/power"
+            android:visibility="gone"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:layout_below="@+id/power"
+            android:gravity="center"
+            android:text="Androidian Logics"
+            android:maxLines="2"
+            android:visibility="gone"
+            android:textColor="#6DF83E"
+            android:id="@+id/logic"/>
+
 
 </RelativeLayout>

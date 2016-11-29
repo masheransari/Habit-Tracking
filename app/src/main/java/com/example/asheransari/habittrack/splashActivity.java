@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asheransari.habittrack.database_material.habitDbHelper;
@@ -36,6 +37,14 @@ public class splashActivity extends AppCompatActivity implements Animation.Anima
         animationSlide.setDuration(500);
         img1.setVisibility(View.VISIBLE);
         img1.startAnimation(animationSlide);
+        TextView t1,t2;
+        t1 = (TextView)findViewById(R.id.power);
+        t2 = (TextView)findViewById(R.id.logic);
+
+        t1.setVisibility(View.VISIBLE);
+        t2.setVisibility(View.VISIBLE);
+        t1.setAnimation(animationSlide);
+        t2.setAnimation(animationSlide);
         Thread timer = new Thread() {
 
             @Override

@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asheransari.habittrack.database_material.*;
@@ -19,14 +21,22 @@ public class login extends AppCompatActivity {
 
         mHabitDbHelper = new habitDbHelper(this);
 
-
-        int temp = count();
-        if(temp == 0)
-        {
-            Intent i = new Intent(login.this,sign_up.class);
-            startActivity(i);
-        }
-        Toast.makeText(login.this,""+temp,Toast.LENGTH_SHORT).show();
+        TextView t1 = (TextView)findViewById(R.id.temp_mainActivity);
+        TextView t2 = (TextView)findViewById(R.id.temp_signup);
+        t1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(login.this,MainActivity.class);
+                startActivity(i);
+            }
+        });
+        t2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(login.this,sign_up.class);
+                startActivity(i);
+            }
+        });
     }
 
     private int count()

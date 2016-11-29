@@ -27,9 +27,12 @@ public class habitDbHelper extends SQLiteOpenHelper{
 
     private static final String SQL_CREATE_LOGIN_TABLE = "CREATE TABLE "+loginContract.TABLE_NAME+
             " ("+loginContract._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
+            loginContract.COLUMN_NAME_LOGIN+ " TEXT NOT NULL, "+
             loginContract.COLUMN_EMAIL_LOGIN+" TEXT NOT NULL, "+
             loginContract.COLUMN_UNAME_LOGIN+" TEXT NOT NULL, "+
             loginContract.COLUMN_PSK_LOGIN+ " TEXT NOT NULL);";
+
+//    private static final String SQL_CREATE_CURRENT_USER = "CREATE TABLE "+
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -40,6 +43,7 @@ public class habitDbHelper extends SQLiteOpenHelper{
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
         onCreate(sqLiteDatabase);
     }
 }

@@ -14,6 +14,8 @@ public class loginContract implements BaseColumns {
 
     public static final String TABLE_NAME = "login";
 
+    public static final String COLUMN_NAME_LOGIN = "name";
+
     public static final String COLUMN_UNAME_LOGIN = "uname";
 
     public static final String COLUMN_PSK_LOGIN = "psk";
