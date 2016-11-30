@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,18 +26,18 @@ public class login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-//        mHabitDbHelper = new habitDbHelper(this);
-//        user_psk = (EditText)findViewById(R.id.edit_Text_user_psk);
-//        signup = (TextView)findViewById(R.id.signup);
+        mHabitDbHelper = new habitDbHelper(this);
+        user_psk = (EditText)findViewById(R.id.edit_Text_user_psk);
+        signup = (TextView)findViewById(R.id.signup);
 //        mFloatingActionButton = (FloatingActionButton)findViewById(R.id.float_new);
 
-//        signup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent i = new Intent(login.this,sign_up.class);
-//                startActivity(i);
-//            }
-//        });
+        signup.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(login.this,sign_up.class);
+                startActivity(i);
+            }
+        });
 
 
 //        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
