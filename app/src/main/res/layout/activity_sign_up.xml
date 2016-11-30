@@ -68,7 +68,7 @@
                         android:hint="Enter Your Name"
                         android:inputType="text"
                         android:paddingLeft="10dp"
-                        android:textColorHint="#000000"
+                        android:textColorHint="#b4afaf"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -101,7 +101,7 @@
                         android:hint="Enter Your Email"
                         android:inputType="textEmailAddress"
                         android:paddingLeft="10dp"
-                        android:textColorHint="#000000"
+                        android:textColorHint="#b4afaf"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -134,7 +134,7 @@
                         android:hint="Enter User Name"
                         android:inputType="text"
                         android:paddingLeft="10dp"
-                        android:textColorHint="#000000"
+                        android:textColorHint="#b4afaf"
                         android:textSize="16sp" />
                 </LinearLayout>
 
@@ -167,7 +167,7 @@
                         android:hint="Enter Password"
                         android:inputType="textPassword"
                         android:paddingLeft="10dp"
-                        android:textColorHint="#000000"
+                        android:textColorHint="#b4afaf"
                         android:textSize="16sp" />
                 </LinearLayout>
                 <TextView
@@ -211,7 +211,7 @@
                         android:hint="Enter Re-Password"
                         android:inputType="textPassword"
                         android:paddingLeft="10dp"
-                        android:textColorHint="#000000"
+                        android:textColorHint="#b4afaf"
                         android:textSize="16sp" />
                 </LinearLayout>
 

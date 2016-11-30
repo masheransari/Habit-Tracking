@@ -9,8 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".login">
-        </activity>
+        <activity android:name=".login"/>
         <activity android:name=".sign_up" />
         <activity android:name=".splashActivity">
             <intent-filter>
@@ -20,5 +19,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
