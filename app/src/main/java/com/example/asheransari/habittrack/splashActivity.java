@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.asheransari.habittrack.database_material.currentContract;
 import com.example.asheransari.habittrack.database_material.habitDbHelper;
 import com.example.asheransari.habittrack.database_material.loginContract;
 
@@ -62,28 +63,49 @@ public class splashActivity extends AppCompatActivity implements Animation.Anima
 
 //                    Intent i = new Intent(getApplicationContext(),MainActivity.class);
 //                    startActivity(i);
-                    int temp = count();
-                    if (temp == 0)
-                    {
-                        Intent i = new Intent(getApplicationContext(),sign_up.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(i);
+                    int tempCurrent = countCurrentTable();
+                    if (tempCurrent == 0) {
+                        int temp = countLoginTAble();
+                        if (temp == 0) {
+                            Intent i = new Intent(getApplicationContext(), sign_up.class);
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(i);
 //                        Toast.makeText(getApplicationContext(),)
+                        } else {
+                            Intent j = new Intent(getApplicationContext(), login.class);
+                            j.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(j);
+                        }
                     }
                     else
                     {
-                        Intent j = new Intent(getApplicationContext(),login.class);
+                        Intent j = new Intent(getApplicationContext(), MainActivity.class);
                         j.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(j);
+
                     }
                 }
+
 
             }
         };
         timer.start();
 
     }
-    private int count()
+    private int countCurrentTable()
+    {
+        SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
+
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ currentContract.TABLE_NAME,null);
+
+        int tempCOunt = cursor.getCount();
+
+//        Toast.makeText(login.this,"TEMO COUNT = "+tempCOunt,Toast.LENGTH_SHORT).show();
+
+        return tempCOunt;
+
+    }
+    private int countLoginTAble()
     {
         SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
 

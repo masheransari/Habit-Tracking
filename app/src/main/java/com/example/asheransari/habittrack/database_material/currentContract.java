@@ -5,8 +5,8 @@ package com.example.asheransari.habittrack.database_material;
  */
 public class currentContract {
 
-    public currentContract()
-    {}
+    public currentContract() {
+    }
 
     public static final String TABLE_NAME = "current_login";
 

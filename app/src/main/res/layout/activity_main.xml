@@ -15,4 +15,12 @@
         android:visibility="gone"
         style="@style/Base.Widget.AppCompat.ProgressBar"
         android:layout_centerInParent="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/temp_new"/>
+<ListView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/list"></ListView>
 </RelativeLayout>
