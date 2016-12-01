@@ -80,13 +80,14 @@
             android:textColorHint="#a15503"
             />
 
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:layout_width="50dp"-->
-            <!--android:layout_height="50dp"-->
-            <!--android:id="@+id/fab"-->
-            <!--android:background="@drawable/arrow"-->
-            <!--android:layout_gravity="center"-->
-            <!--/>-->
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/fab"
+            android:background="@drawable/arrow"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            />
     </LinearLayout>
 
 </ScrollView>
