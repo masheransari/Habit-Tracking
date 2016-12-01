@@ -33,7 +33,7 @@ public class login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mHabitDbHelper = new habitDbHelper(this);
-        user_psk = (EditText)findViewById(R.id.edit_Text_user_psk);
+        user_psk = (EditText)findViewById(R.id.edit_Text_user);
         signup = (TextView)findViewById(R.id.signup);
         btn_uName_psk = (Button)findViewById(R.id.fab);
 //        mFloatingActionButton = (FloatingActionButton)findViewById(R.id.float_new);
