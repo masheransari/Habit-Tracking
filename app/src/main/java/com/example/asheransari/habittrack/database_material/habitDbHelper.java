@@ -32,7 +32,7 @@ public class habitDbHelper extends SQLiteOpenHelper{
             loginContract.COLUMN_UNAME_LOGIN+" TEXT NOT NULL, "+
             loginContract.COLUMN_PSK_LOGIN+ " TEXT NOT NULL);";
 
-    private static final String SQL_CREATE_CURRENT_USER = "CREATE TABLE "+currentContract.TABLE_NAME+
+    private static final String SQL_CREATE_CURRENT_USER = "CREATE TABLE "+currentContract.TABLE_NAME+" ("+
             currentContract.COLUMN_CURRENT_NAME+ " TEXT NOT NULL, "+
             currentContract.COLUMN_CURRENT_EMAIL+" TEXT NOT NULL, "+
             currentContract.COLUMN_CURRENT_UNAME+" TEXT NOT NULL, "+

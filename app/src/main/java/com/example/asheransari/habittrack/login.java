@@ -149,12 +149,33 @@ public class login extends AppCompatActivity {
         v.put(currentContract.COLUMN_CURRENT_PSK,psk);
         db.insert(currentContract.TABLE_NAME, null, v);
         Intent i = new Intent(login.this,MainActivity.class);
-//        i.putExtra("uname",uname);
-//        i.putExtra("psk",psk);
-//        i.putExtra("email",data[1]);
-//        i.putExtra("name",data[0]);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.putExtra("uniqueID","login_activity");
+        i.putExtra("uname",uname);
+        i.putExtra("psk",psk);
+        i.putExtra("email",data[1]);
+        i.putExtra("name",data[0]);
+        SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
+        String Name =null,UName = null,email=null;
 
+//        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ currentContract.TABLE_NAME,null);
+//        if (cursor!=null|| cursor.getCount()>1)
+//        {
+//            int nameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_NAME);
+//            int unameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_UNAME);
+//            int emailIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_EMAIL);
+//            while(cursor.moveToNext())
+//            {
+//                Name = cursor.getString(nameIndex);
+//                UName = cursor.getString(unameIndex);
+//                email = cursor.getString(emailIndex);
+//            }
+//
+//        }
+
+//        i.putExtra("NAME",Name);
+//        i.putExtra("UNAME",UName);
+//        i.putExtra("EMAIL",email);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         db.close();
         startActivity(i);
 

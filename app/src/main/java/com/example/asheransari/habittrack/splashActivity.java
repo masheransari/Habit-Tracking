@@ -80,6 +80,30 @@ public class splashActivity extends AppCompatActivity implements Animation.Anima
                     else
                     {
                         Intent j = new Intent(getApplicationContext(), MainActivity.class);
+                        SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
+                        String Name =null,UName = null,email=null;
+
+                        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ currentContract.TABLE_NAME,null);
+//                        while(cursor!=null0)
+                        if (cursor!=null|| cursor.getCount()>1)
+                        {
+                            int nameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_NAME);
+                            int unameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_UNAME);
+                            int emailIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_EMAIL);
+                            while(cursor.moveToNext())
+                            {
+                                Name = cursor.getString(nameIndex);
+                                UName = cursor.getString(unameIndex);
+                                email = cursor.getString(emailIndex);
+                            }
+
+                        }
+//                        yeha pe kam chal rha hai ke hum jab user se login lenge to jo uski personal detail hai wo MainActivity me kis tarha bhej na hai..
+//                        yeha hu,m wo define kren ge same as hum yehe kam baki dono me bhe kren ge,,,...
+                        j.putExtra("uniqueID","splash_activity");
+                        j.putExtra("NAME",Name);
+                        j.putExtra("UNAME",UName);
+                        j.putExtra("EMAIL",email);
                         j.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(j);
 
@@ -90,7 +114,6 @@ public class splashActivity extends AppCompatActivity implements Animation.Anima
             }
         };
         timer.start();
-
     }
     private int countCurrentTable()
     {
@@ -98,8 +121,12 @@ public class splashActivity extends AppCompatActivity implements Animation.Anima
 
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ currentContract.TABLE_NAME,null);
 
-        int tempCOunt = cursor.getCount();
-
+        int tempCOunt=0;
+        if (cursor != null && cursor.getCount()!=0)
+        {
+            tempCOunt = cursor.getCount();
+        }
+//        Toast.makeText(splashActivity.this, "count ="+tempCOunt, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(login.this,"TEMO COUNT = "+tempCOunt,Toast.LENGTH_SHORT).show();
 
         return tempCOunt;
@@ -110,8 +137,11 @@ public class splashActivity extends AppCompatActivity implements Animation.Anima
         SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
 
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ loginContract.TABLE_NAME,null);
-
-        int tempCOunt = cursor.getCount();
+        int tempCOunt=0;
+        if (cursor != null && cursor.getCount()!=0)
+        {
+            tempCOunt = cursor.getCount();
+        }
 
 //        Toast.makeText(login.this,"TEMO COUNT = "+tempCOunt,Toast.LENGTH_SHORT).show();
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.asheransari.habittrack.*;
+import com.example.asheransari.habittrack.database_material.currentContract;
 import com.example.asheransari.habittrack.database_material.habitDbHelper;
 import com.example.asheransari.habittrack.database_material.loginContract;
 
@@ -107,6 +108,7 @@ public class sign_up extends AppCompatActivity {
 
     }
 
+
     public boolean alreadyExists(String uName) {
         boolean result = false;
 
@@ -130,6 +132,50 @@ public class sign_up extends AppCompatActivity {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
     }
+//    private String nameGet(String userName, String psk)
+//    {
+//        SQLiteDatabase db = mHabitDbHelper.getReadableDatabase();
+//        String a,b;
+//        String c = "User Name Not Found",d = "example@example.com";
+//        String query = "SELECT name,email,uname,psk FROM "+loginContract.TABLE_NAME;
+//        Cursor cursor = db.rawQuery(query,null);
+//        b="NOT EXISTS";
+//        if (cursor.moveToFirst())
+//        {
+//            do {
+//                a = cursor.getString(2);
+//                b = cursor.getString(3);
+//                if (a.equals(userName)&& psk.equals(b))
+//                {
+//                    c = cursor.getString(0);
+//                    d = cursor.getString(1);
+//                    break;
+//                }
+//            }
+//            while(cursor.moveToNext());
+//        }
+//        db.close();
+//        return c+","+d;
+//    }
+
+//    public void insertCurrent() {
+//        String uname, psk;
+//        uname = .getText().toString();
+//        psk = user_psk.getText().toString();
+//        String temp = null;
+//
+//        temp = nameGet(uname, psk);
+//        String[] data = temp.split(",");
+//
+//        SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
+//        ContentValues v = new ContentValues();
+//        v.put(currentContract.COLUMN_CURRENT_NAME, data[0]);
+//        v.put(currentContract.COLUMN_CURRENT_EMAIL, data[0]);
+//        v.put(currentContract.COLUMN_CURRENT_UNAME, uname);
+//        v.put(currentContract.COLUMN_CURRENT_PSK, psk);
+//        db.insert(currentContract.TABLE_NAME, null, v);
+//    }
+
 
     private void insertDbLogin(String email, String userName, String psk, String orignalName) {
         SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
@@ -145,13 +191,39 @@ public class sign_up extends AppCompatActivity {
             values.put(loginContract.COLUMN_UNAME_LOGIN, userName);
             values.put(loginContract.COLUMN_PSK_LOGIN, psk);
             db.insert(loginContract.TABLE_NAME, null, values);
+            insertCurrent(userName,orignalName,email,psk);
             ClearAll();
             Intent i = new Intent(sign_up.this, MainActivity.class);
+//            SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
+//
+//            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ currentContract.TABLE_NAME,null);
+//            String Name = cursor.getString(cursor.getColumnIndex(loginContract.COLUMN_NAME_LOGIN));
+//            String UName = cursor.getString(cursor.getColumnIndex(loginContract.COLUMN_UNAME_LOGIN));
+//            String emailDb = cursor.getString(cursor.getColumnIndex(loginContract.COLUMN_EMAIL_LOGIN));
+//                        yeha pe kam chal rha hai ke hum jab user se login lenge to jo uski personal detail hai wo MainActivity me kis tarha bhej na hai..
+//                        yeha hu,m wo define kren ge same as hum yehe kam baki dono me bhe kren ge,,,...
+            i.putExtra("uniqueID","sign_up_activity");
+            i.putExtra("NAME",orignalName);
+            i.putExtra("UNAME",userName);
+            i.putExtra("EMAIL",email);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(i);
 
         }
     }
+    public void insertCurrent(String uname, String name, String email, String psk)
+    {
+        SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(currentContract.COLUMN_CURRENT_UNAME,uname);
+        values.put(currentContract.COLUMN_CURRENT_NAME,name);
+        values.put(currentContract.COLUMN_CURRENT_EMAIL,email);
+        values.put(currentContract.COLUMN_CURRENT_PSK,psk);
+
+
+        db.insert(currentContract.TABLE_NAME,null,values);
+    }
+
     private final TextWatcher mTextEditorWatcher = new TextWatcher() {
 
         public void beforeTextChanged(CharSequence s, int start, int count, int after)

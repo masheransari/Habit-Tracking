@@ -33,8 +33,8 @@ public class currentAdapter extends ArrayAdapter<currentVariableClass>{
 
             currentVariableClass variableClass = getItem(position);
 
-            TextView temp = (TextView)v.findViewById(R.id.temp_new);
-            temp.setText("name = "+variableClass.getName()+", User Name = "+variableClass.getUname()+ ", Password = "+variableClass.getPsk()+", email = "+variableClass.getEmail()+"\n");
+//            TextView temp = (TextView)v.findViewById(R.id.temp_new);
+//            temp.setText("name = "+variableClass.getName()+", User Name = "+variableClass.getUname()+ ", Password = "+variableClass.getPsk()+", email = "+variableClass.getEmail()+"\n");
         }
         return v;
     }

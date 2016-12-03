@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.asheransari.habittrack.database_material.adapter.currentAdapter;
 import com.example.asheransari.habittrack.database_material.currentContract;
@@ -30,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TextView uName_Text,name_text;
+        uName_Text = (TextView)findViewById(R.id.uname_mainActivity);
+        name_text = (TextView)findViewById(R.id.name_mainActivity);
         ArrayList<currentVariableClass> arrayList = new ArrayList<>();
         mHabitDbHelper = new habitDbHelper(this);
 ////this work is only for ProgressBar <!-- Start From Here-->
@@ -37,20 +41,42 @@ public class MainActivity extends AppCompatActivity {
         new MyProgressBar().execute((Void)null);
 //        <!--END HERE -->
 
-        TextView t1 = (TextView)findViewById(R.id.temp_new);
+        String name = null, uname = null,email = null;
+        Intent getData = getIntent();
+        if (getData !=null)
+        {
+            String uniqueId = getData.getExtras().getString("uniqueID");
+            switch (uniqueId)
+            {
+                case "splash_activity":
+                    Toast.makeText(MainActivity.this, "From Splash Activity", Toast.LENGTH_SHORT).show();
+                    name = getData.getExtras().getString("NAME");
+                    uname =getData.getExtras().getString("UNAME");
+                    email = getData.getExtras().getString("EMAIL");
+                    break;
+                case "login_activity":
+                    Toast.makeText(MainActivity.this, "From login Activity", Toast.LENGTH_SHORT).show();
+                    name = getData.getExtras().getString("name");
+                    uname =getData.getExtras().getString("uname");
+                    email = getData.getExtras().getString("email");
+                    break;
+                case "sign_up_activity":
+                    Toast.makeText(MainActivity.this, "From Sign-up Activity", Toast.LENGTH_SHORT).show();
+                    name = getData.getExtras().getString("NAME");
+                    uname =getData.getExtras().getString("UNAME");
+                    email = getData.getExtras().getString("EMAIL");
+                    break;
+                default:
+                Toast.makeText(MainActivity.this, "in Default Activity", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            name_text.setText(name);
+            uName_Text.setText("User Name: "+uname+"\nEmail: "+email);
+        }
 
-        ListView listView = (ListView)findViewById(R.id.list);
-        arrayList = fetchCurrentData();
-//        if (arrayList.size() == 1)
-//        {
-//
-//            t1.setText();
-//        }
-        currentAdapter adapter = new currentAdapter(this,arrayList);
-
-        listView.setAdapter(adapter);
     }
 
+    
     private ArrayList<currentVariableClass> fetchCurrentData()
     {
         SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
