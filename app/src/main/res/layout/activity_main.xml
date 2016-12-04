@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -16,21 +17,36 @@
         android:visibility="gone"
         style="@style/Base.Widget.AppCompat.ProgressBar"
         android:layout_centerInParent="true"/>
+    <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:src="@drawable/fab_plus"
+    app:backgroundTint="#d20b0d"
+    app:borderWidth="0dp"
+    app:elevation="8dp"
+    app:fabSize="normal"
+    app:pressedTranslationZ="12dp"
+    android:background="#E72063"
+    />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:id="@+id/mainDetail"
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:id="@+id/img"
-            android:layout_margin="10dp"
-            android:background="@drawable/user"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:id="@+id/img"
+                android:layout_margin="10dp"
+                android:background="@drawable/user"/>
             <TextView
                 android:id="@+id/uname_mainActivity"
                 android:layout_width="match_parent"
@@ -85,8 +101,15 @@
         </LinearLayout>
 
     </LinearLayout>
-<ListView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/list"></ListView>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mainDetail"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/list">
+
+    </ListView>
+
+
 </RelativeLayout>

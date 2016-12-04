@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,10 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.asheransari.habittrack.database_material.adapter.currentAdapter;
-import com.example.asheransari.habittrack.database_material.currentContract;
-import com.example.asheransari.habittrack.database_material.currentVariableClass;
+import com.example.asheransari.habittrack.database_material.adapter.habitAdapter;
+import com.example.asheransari.habittrack.database_material.habitContract;
 import com.example.asheransari.habittrack.database_material.habitDbHelper;
+import com.example.asheransari.habittrack.database_material.variableContractClass;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         TextView uName_Text,name_text;
         uName_Text = (TextView)findViewById(R.id.uname_mainActivity);
         name_text = (TextView)findViewById(R.id.name_mainActivity);
-        ArrayList<currentVariableClass> arrayList = new ArrayList<>();
+
         mHabitDbHelper = new habitDbHelper(this);
 ////this work is only for ProgressBar <!-- Start From Here-->
         timerforprogressbar = (long) 5000 ;
@@ -74,48 +75,105 @@ public class MainActivity extends AppCompatActivity {
             uName_Text.setText("User Name: "+uname+"\nEmail: "+email);
         }
 
+        ListView listView = (ListView)findViewById(R.id.list);
+
+        ArrayList<variableContractClass> arrayList = new ArrayList<variableContractClass>();
+
+        arrayList = displayDatabaseInfo(uname);
+
+        habitAdapter HabitAdapter = new habitAdapter(MainActivity.this,arrayList);
+
+        listView.setAdapter(HabitAdapter);
+
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+
+        final String finalName = name;
+        final String finalUname = uname;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,insert_data.class);
+
+                i.putExtra("name", finalName);
+                i.putExtra("uname", finalUname);
+                startActivity(i);
+            }
+        });
+
+
     }
 
-    
-    private ArrayList<currentVariableClass> fetchCurrentData()
+
+//    private ArrayList<currentVariableClass> fetchCurrentData()
+//    {
+//        SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
+//
+//        String query = "SELECT * from "+ currentContract.TABLE_NAME;
+//
+//        ArrayList<currentVariableClass> arrayList = new ArrayList<>();
+//
+//        String[] projection={
+//                currentContract.COLUMN_CURRENT_NAME,
+//                currentContract.COLUMN_CURRENT_UNAME,
+//                currentContract.COLUMN_CURRENT_PSK,
+//                currentContract.COLUMN_CURRENT_EMAIL
+//        };
+//
+//        Cursor cursor = db.query(currentContract.TABLE_NAME,projection,null,null,null,null,null);
+//        try
+//        {
+//            int nameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_NAME);
+//            int unameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_UNAME);
+//            int emailIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_EMAIL);
+//            do
+//            {
+//                String name = cursor.getString(nameIndex);
+//                String Uname = cursor.getString(unameIndex);
+//                String email = cursor.getString(emailIndex);
+//
+//                arrayList.add(new currentVariableClass(name,Uname,email));
+//            }
+//            while (cursor.moveToNext());
+//        }
+//        finally {
+//            cursor.close();
+//            db.close();
+//        }
+//        return arrayList;
+//
+//    }
+
+    private ArrayList<variableContractClass> displayDatabaseInfo(String uname)
     {
-        SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
+        ArrayList<variableContractClass> arrayList = new ArrayList<variableContractClass>();
+        SQLiteDatabase db = mHabitDbHelper.getReadableDatabase();
 
-        String query = "SELECT * from "+ currentContract.TABLE_NAME;
+//        String[] projection={
+//
+//        }
 
-        ArrayList<currentVariableClass> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ habitContract.TABLE_NAME+" WHERE "+habitContract.COLUMN_UNAME+"=?",new String[]{uname});
 
-        String[] projection={
-                currentContract.COLUMN_CURRENT_NAME,
-                currentContract.COLUMN_CURRENT_UNAME,
-                currentContract.COLUMN_CURRENT_PSK,
-                currentContract.COLUMN_CURRENT_EMAIL
-        };
-
-        Cursor cursor = db.query(currentContract.TABLE_NAME,projection,null,null,null,null,null);
         try
         {
-            int nameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_NAME);
-            int unameIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_UNAME);
-            int emailIndex = cursor.getColumnIndex(currentContract.COLUMN_CURRENT_EMAIL);
-            do
-            {
-                String name = cursor.getString(nameIndex);
-                String Uname = cursor.getString(unameIndex);
-                String email = cursor.getString(emailIndex);
+            int detailIndex = cursor.getColumnIndex(habitContract.COLUMN_DETAIL);
+            int dateIndex = cursor.getColumnIndex(habitContract.COLUMN_DATE);
+            int timeIndex = cursor.getColumnIndex(habitContract.COLUMN_TIME);
 
-                arrayList.add(new currentVariableClass(name,Uname,email));
+            while(cursor.moveToNext())
+            {
+                String detail =  cursor.getString(detailIndex);
+                String date = cursor.getString(dateIndex);
+                String time = cursor.getString(timeIndex);
+
+                arrayList.add(new variableContractClass(detail,date,time));
             }
-            while (cursor.moveToNext());
         }
         finally {
             cursor.close();
-            db.close();
         }
         return arrayList;
-
     }
-
 
     private class MyProgressBar extends AsyncTask<Void, Void, Void> {
 

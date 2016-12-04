@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="wrap_content"
+    android:background="@drawable/my_border"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail"
+        android:padding="8dp"
+        android:text="Temp Data Here"
+        android:textSize="18sp"
+        android:textColor="#06319f"
+        android:textDirection="ltr"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:orientation="horizontal">
+    <TextView
+        android:id="@+id/date_detial"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:text="Date: "
+        android:textColor="#ec130d"
+        android:textStyle="italic"
+        android:textSize="16sp"
+        android:textDirection="ltr"
+        />
+    <TextView
+        android:id="@+id/time_detial"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:maxLines="2"
+        android:gravity="end"
+        android:text="Time :"
+        android:paddingRight="10dp"
+        android:textColor="#ec130d"
+        android:textStyle="italic"
+        android:textSize="16sp"
+        />
+    </LinearLayout>
 </LinearLayout>
