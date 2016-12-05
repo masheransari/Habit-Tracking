@@ -8,29 +8,16 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="#c4eac7"
+    android:background="@color/Main_Background"
     tools:context="com.example.asheransari.habittrack.MainActivity">
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progress"
-        android:visibility="gone"
-        style="@style/Base.Widget.AppCompat.ProgressBar"
-        android:layout_centerInParent="true"/>
-    <android.support.design.widget.FloatingActionButton
-    android:id="@+id/fab"
-    android:layout_width="56dp"
-    android:layout_height="56dp"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentRight="true"
-    android:src="@drawable/fab_plus"
-    app:backgroundTint="#d20b0d"
-    app:borderWidth="0dp"
-    app:elevation="8dp"
-    app:fabSize="normal"
-    app:pressedTranslationZ="12dp"
-    android:background="#E72063"
-    />
+    <!--<ProgressBar-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/progress"-->
+        <!--android:visibility="gone"-->
+        <!--style="@style/Base.Widget.AppCompat.ProgressBar"-->
+        <!--android:layout_centerInParent="true"/>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -43,7 +30,7 @@
             android:orientation="vertical">
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="100dp"
                 android:id="@+id/img"
                 android:layout_margin="10dp"
                 android:background="@drawable/user"/>
@@ -56,7 +43,7 @@
                 android:textAlignment="center"
                 android:text="Temp Data User Name"
                 android:textStyle="bold"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:layout_marginTop="5dp"
                 android:textColor="#299109"
                 />
@@ -111,5 +98,18 @@
 
     </ListView>
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/fab_plus"
+        app:backgroundTint="#d20b0d"
+        app:borderWidth="0dp"
+        app:elevation="8dp"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        android:background="#E72063"
+        />
 </RelativeLayout>

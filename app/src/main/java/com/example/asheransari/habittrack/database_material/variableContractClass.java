@@ -5,18 +5,23 @@ package com.example.asheransari.habittrack.database_material;
  */
 public class variableContractClass {
 
+    private int id;
+
     private String detail;
 
     private String date;
 
     private String time;
 
-    public variableContractClass(String detail, String date, String time) {
+    public variableContractClass(String detail, String date, String time, int id) {
         this.detail = detail;
         this.date = date;
         this.time = time;
+        this.id =id;
     }
-
+    public int getId() {
+        return id;
+    }
     public String getDetail() {
         return detail;
     }

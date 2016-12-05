@@ -34,24 +34,13 @@ public class insert_data extends AppCompatActivity {
         detail_EdtiText = (EditText)findViewById(R.id.editText_detail);
 
         TextView nameText = (TextView)findViewById(R.id.insert_UserName);
-        Intent i = getIntent();
+               Intent i = getIntent();
 
-        String name = i.getExtras().getString("name");
+        final String name = i.getExtras().getString("name");
         final String uname = i.getExtras().getString("uname");
-//        nameText.setText(name);
-//        Calendar calander =null;
-//        calander = Calendar.getInstance();
-//        simpledateformat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//        Date = simpledateformat.format(calander.getTime());
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            calander = Calendar.getInstance();
-//            simpledateformat = new SimpleDateFormat("dd-MM-yyyy");// HH:mm:ss
-//        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            date= simpledateformat.format(calander.getTime());
-//        }
+        final String email = i.getExtras().getString("email");
 
-//        final String[] date = {null};
+        nameText.setText(""+name);
         btn_insert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,33 +51,6 @@ public class insert_data extends AppCompatActivity {
                 }
                 else
                 {
-//                    String date = giveDate();
-
-//                    String dt;
-//                    Date cal = (Date) Calendar.getInstance().getTime();
-//                    dt = cal.toLocaleString();
-
-//                    long date = System.currentTimeMillis();
-//
-//                    SimpleDateFormat sdf = new SimpleDateFormat("MMM MM dd, yyyy h:mm a");
-//                    String dateString = sdf.format(date);
-
-//                    final Calendar c = Calendar.getInstance();
-//                    yy = c.get(Calendar.YEAR);
-//                    mm = c.get(Calendar.MONTH);
-//                    dd = c.get(Calendar.DAY_OF_MONTH);
-//
-//                    // set current date into textview
-//                    tvDisplayDate.setText(new StringBuilder()
-//                            // Month is 0 based, just add 1
-//                            .append(yy).append(" ").append("-").append(mm + 1).append("-")
-//                            .append(dd));
-
-
-
-//                    String dateString = updateDisplay();
-
-
                     SimpleDateFormat dfDate_day= new SimpleDateFormat("E, dd/MM/yyyy");
                     Calendar cD = Calendar.getInstance();
                     String date = dfDate_day.format(cD.getTime());
@@ -97,52 +59,15 @@ public class insert_data extends AppCompatActivity {
                     Calendar cT = Calendar.getInstance();
 
                     String time = dfDate_time.format(cT.getTime());
-                    Toast.makeText(insert_data.this, ""+date, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(insert_data.this, "Time = "+time, Toast.LENGTH_SHORT).show();
-                    insertData(detail,date,time,uname);
+//                    Toast.makeText(insert_data.this, ""+date, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(insert_data.this, "Time = "+time, Toast.LENGTH_SHORT).show();
+                    insertData(detail,date,time,uname, name, email);
                 }
             }
         });
-//        c = Calendar.getInstance();
-//    int mYear = c.get(Calendar.YEAR);
-//    int mMonth = c.get(Calendar.MONTH);
-//    int mDay = c.get(Calendar.DAY_OF_MONTH);
-//
-//    private String updateDisplay() {
-//        StringBuilder date = (
-//                new StringBuilder()
-//                        // Month is 0 based so add 1
-//                        .append(mMonth + 1).append("-")
-//                        .append(mDay).append("-")
-//                        .append(mYear).append(" "));
-//        return String.valueOf(date);
-//    }
     }
-//    final Calendar
 
-//    public String giveDate() {
-//        Calendar cal = Calendar.getInstance();
-//        SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, yyyy");
-//        return sdf.format(cal.getTime());
-//    }
-
-    //    public String getCurrentDate(View v) {
-//        Calendar c = null;
-//        String date=null;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            c = Calendar.getInstance();
-//        }
-//
-//        SimpleDateFormat df = null;
-//        String formattedDate=null;
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-//            df = new SimpleDateFormat("yyyy-MM-dd");//HH:mm:ss
-//            formattedDate = df.format(c.getTime());
-//        }
-//        return formattedDate;
-//    }
-
-    public void insertData(String detail,String date, String time,String uname)
+    public void insertData(String detail,String date, String time,String uname,String name, String emil)
     {
         SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
 
@@ -155,5 +80,12 @@ public class insert_data extends AppCompatActivity {
 
         db.insert(habitContract.TABLE_NAME,null,values);
         db.close();
+        Intent i = new Intent(insert_data.this,MainActivity.class);
+        i.putExtra("uniqueID","insert_date_activity");
+        i.putExtra("NAME",name);
+        i.putExtra("UNAME",uname);
+        i.putExtra("EMAIL",emil);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
     }
 }

@@ -10,7 +10,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
         <activity android:name=".login" />
-        <activity android:name=".sign_up" />
+        <activity android:name=".sign_up">
+        <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.example.asheransari.habittrack.login"/>
+        </activity>
         <activity android:name=".splashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".insert_data"></activity>
+        <activity android:name=".insert_data" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.asheransari.habittrack.MainActivity"/>
+        </activity>
+        <activity android:name=".update_activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.asheransari.habittrack.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

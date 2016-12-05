@@ -2,6 +2,7 @@ package com.example.asheransari.habittrack;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -9,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -58,7 +60,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String getData_user = user_psk.getText().toString();
+                String getData_user = user_name.getText().toString();
                 String getData_psk = user_psk.getText().toString();
 //                boolean check = checkUserName(getData_user);
 //                        user_psk.setInputType( InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD );
@@ -84,22 +86,28 @@ public class login extends AppCompatActivity {
 
         SQLiteDatabase db = mHabitDbHelper.getReadableDatabase();
         String a,b;
-        String query = "SELECT uname,psk FROM "+loginContract.TABLE_NAME;
+        String query = "SELECT "+loginContract.COLUMN_UNAME_LOGIN+","+loginContract.COLUMN_PSK_LOGIN+" FROM "+loginContract.TABLE_NAME;
         Cursor cursor = db.rawQuery(query,null);
         b="NOT EXISTS";
+        String psk=null;
         if (cursor.moveToFirst())
         {
             do {
                 a = cursor.getString(0);
                 b = cursor.getString(1);
+//                Toast.makeText(login.this, ""+a, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(login.this, ""+userName, Toast.LENGTH_SHORT).show();
                 if (a.equals(userName))
                 {
                     b = cursor.getString(1);
                     break;
+//                    Toast.makeText(login.this, "in  If", Toast.LENGTH_SHORT).show();
                 }
+
             }
             while(cursor.moveToNext());
         }
+//        Toast.makeText(login.this, ""+b, Toast.LENGTH_SHORT).show();
         db.close();
         return b;
     }
@@ -118,17 +126,24 @@ public class login extends AppCompatActivity {
             do {
                 a = cursor.getString(2);
                 b = cursor.getString(3);
+//                Toast.makeText(login.this, "DataBase = "+a+" & UserName = "+userName, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(login.this, "DataBase = "+b+" & UserName = "+psk, Toast.LENGTH_SHORT).show();
                 if (a.equals(userName)&& psk.equals(b))
                 {
-                    c = cursor.getString(0);
-                    d = cursor.getString(1);
+//                    Toast.makeText(login.this, "In If Condition", Toast.LENGTH_SHORT).show();
+                    c = cursor.getString(0);//this is for name..
+                    d = cursor.getString(1);//this is for email..
                     break;
                 }
             }
             while(cursor.moveToNext());
         }
         db.close();
-        return c+","+d;
+        c = c+","+d;
+//        Toast.makeText(login.this, ""+c, Toast.LENGTH_SHORT).show();
+
+        return c;
+
     }
 //    name,email,uname,psk
     public void insertCurrent()
@@ -140,11 +155,12 @@ public class login extends AppCompatActivity {
 
         temp = nameGet(uname,psk);
         String[] data = temp.split(",");
+//        Toast.makeText(login.this, ""+temp, Toast.LENGTH_SHORT).show();
 
         SQLiteDatabase db = mHabitDbHelper.getWritableDatabase();
         ContentValues v = new ContentValues();
         v.put(currentContract.COLUMN_CURRENT_NAME,data[0]);
-        v.put(currentContract.COLUMN_CURRENT_EMAIL,data[0]);
+        v.put(currentContract.COLUMN_CURRENT_EMAIL,data[1]);
         v.put(currentContract.COLUMN_CURRENT_UNAME,uname);
         v.put(currentContract.COLUMN_CURRENT_PSK,psk);
         db.insert(currentContract.TABLE_NAME, null, v);
@@ -154,8 +170,8 @@ public class login extends AppCompatActivity {
         i.putExtra("psk",psk);
         i.putExtra("email",data[1]);
         i.putExtra("name",data[0]);
-        SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
-        String Name =null,UName = null,email=null;
+
+//        SQLiteDatabase sqLiteDatabase = mHabitDbHelper.getReadableDatabase();
 
 //        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM "+ currentContract.TABLE_NAME,null);
 //        if (cursor!=null|| cursor.getCount()>1)
@@ -233,5 +249,21 @@ public class login extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Are you sure you want to Exit?")
+                .setPositiveButton("yes", new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton("no", null).show();
     }
 }
